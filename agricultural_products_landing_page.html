@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>田野選物｜在地農產品</title>
+<style>
+  :root {
+    --green: #365b43;
+    --green-light: #e8efe6;
+    --olive: #8b9b69;
+    --cream: #f8f6ef;
+    --ink: #29352d;
+    --muted: #69746b;
+    --line: #e2e5dc;
+    --white: #fff;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; color: var(--ink); background: var(--cream);
+    font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1120px, calc(100% - 44px)); margin: auto; }
+  header {
+    background: rgba(248,246,239,.96); border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px);
+  }
+  .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: .04em; }
+  .brand-mark {
+    display: grid; place-items: center; width: 39px; height: 39px; border-radius: 50%;
+    background: var(--green); color: white; font-size: 1.15rem;
+  }
+  .links { display: flex; align-items: center; gap: 28px; color: #536057; font-size: .92rem; }
+  .links a:hover { color: var(--green); }
+  .contact {
+    padding: 11px 18px; border: 1px solid var(--green); border-radius: 4px;
+    color: var(--green); font-size: .9rem; font-weight: 700;
+  }
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 55px; align-items: center;
+    padding-top: 72px; padding-bottom: 76px;
+  }
+  .eyebrow { color: var(--olive); font-size: .82rem; font-weight: 800; letter-spacing: .15em; }
+  h1 { font-size: clamp(2.5rem, 5vw, 4.3rem); line-height: 1.22; letter-spacing: -.04em; margin: 17px 0 22px; }
+  h1 span { color: var(--green); }
+  .hero p { max-width: 480px; color: var(--muted); line-height: 1.95; font-size: 1rem; }
+  .hero-actions { display: flex; gap: 13px; margin-top: 29px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 14px 22px; border-radius: 4px; font-weight: 700; font-size: .92rem; }
+  .btn.primary { background: var(--green); color: white; }
+  .btn.outline { border: 1px solid #b9c3b7; color: var(--green); }
+  .hero-photo {
+    position: relative; min-height: 405px; border-radius: 3px; overflow: hidden;
+    background: linear-gradient(135deg, rgba(37,70,43,.04), rgba(37,70,43,.1)),
+      url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=85") center/cover;
+  }
+  .photo-label {
+    position: absolute; bottom: 20px; left: 20px; background: rgba(248,246,239,.94);
+    padding: 14px 18px; border-left: 3px solid var(--olive); font-size: .86rem;
+  }
+  .photo-label strong { display: block; font-size: 1rem; margin-bottom: 3px; }
+  .section { padding: 76px 0; }
+  .section.white { background: white; }
+  .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+  .section-heading .kicker { color: var(--olive); font-size: .78rem; font-weight: 800; letter-spacing: .15em; }
+  h2 { margin: 8px 0 0; font-size: clamp(1.8rem, 3.3vw, 2.65rem); letter-spacing: -.03em; }
+  .section-heading p { max-width: 390px; color: var(--muted); line-height: 1.8; margin: 0; font-size: .92rem; }
+  .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .product { background: var(--cream); border: 1px solid var(--line); }
+  .product-img { height: 220px; background-size: cover; background-position: center; }
+  .product:nth-child(1) .product-img { background-image: url("https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=800&q=80"); }
+  .product:nth-child(2) .product-img { background-image: url("https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80"); }
+  .product:nth-child(3) .product-img { background-image: url("https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=800&q=80"); }
+  .product-info { padding: 21px 22px 23px; }
+  .tag { display: inline-block; padding: 5px 9px; background: var(--green-light); color: var(--green); font-size: .74rem; border-radius: 2px; }
+  .product h3 { margin: 12px 0 8px; font-size: 1.18rem; }
+  .product p { color: var(--muted); font-size: .9rem; line-height: 1.75; margin: 0; }
+  .story {
+    display: grid; grid-template-columns: .95fr 1.05fr; gap: 58px; align-items: center;
+  }
+  .story-photo {
+    min-height: 350px; background: url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=85") center/cover;
+  }
+  .story-copy p { color: var(--muted); line-height: 2; }
+  .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 28px; }
+  .value { padding: 16px; border-top: 2px solid var(--olive); background: #f7f7f1; }
+  .value strong { display: block; margin-bottom: 6px; }
+  .value span { color: var(--muted); font-size: .83rem; line-height: 1.6; }
+  .banner { background: var(--green); color: white; padding: 54px 0; }
+  .banner-inner { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+  .banner h2 { margin: 0 0 10px; font-size: clamp(1.6rem, 3vw, 2.4rem); }
+  .banner p { margin: 0; color: #d8e3d7; line-height: 1.8; }
+  .banner .btn { flex-shrink: 0; background: #f2f0e6; color: var(--green); }
+  footer { padding: 27px 0; color: #727b72; font-size: .82rem; }
+  .footer-inner { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  @media (max-width: 760px) {
+    .wrap { width: min(100% - 32px, 560px); }
+    .nav { min-height: 68px; }
+    .links { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 30px; padding-top: 48px; padding-bottom: 55px; }
+    .hero-photo { min-height: 310px; }
+    .section { padding: 58px 0; }
+    .section-heading { display: block; }
+    .section-heading p { margin-top: 15px; }
+    .products { grid-template-columns: 1fr; }
+    .product-img { height: 240px; }
+    .story { grid-template-columns: 1fr; gap: 28px; }
+    .story-photo { min-height: 270px; }
+    .values { grid-template-columns: 1fr; }
+    .banner-inner { display: block; }
+    .banner .btn { margin-top: 23px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="brand-mark">田</span><span>田野選物</span></a>
+    <nav class="links" aria-label="主選單">
+      <a href="#products">農產品</a><a href="#about">關於我們</a><a href="#promise">我們的理念</a>
+    </nav>
+    <a class="contact" href="#contact">聯絡我們</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="wrap hero">
+    <div>
+      <div class="eyebrow">FROM FARM TO TABLE</div>
+      <h1>把土地的好，<br><span>送上每一張餐桌。</span></h1>
+      <p>嚴選當季在地農產品，從產地到餐桌，分享新鮮、自然的好滋味。支持友善耕作，也讓每一份用心被更多人看見。</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#products">探索當季農產　→</a>
+        <a class="btn outline" href="#about">認識我們</a>
+      </div>
+    </div>
+    <div class="hero-photo" role="img" aria-label="新鮮蔬果展示">
+      <div class="photo-label"><strong>當季・在地・新鮮</strong><span>讓好農產，回到日常生活。</span></div>
+    </div>
+  </section>
+
+  <section class="section white" id="products">
+    <div class="wrap">
+      <div class="section-heading">
+        <div><div class="kicker">SEASONAL SELECTION</div><h2>當季農產品</h2></div>
+        <p>跟著季節挑選食材，保留農產品最自然的風味，也讓每一季都有值得期待的滋味。</p>
+      </div>
+      <div class="products">
+        <article class="product">
+          <div class="product-img" role="img" aria-label="玉米"></div>
+          <div class="product-info"><span class="tag">當季鮮採</span><h3>新鮮玉米</h3><p>顆粒飽滿、自然香甜，簡單蒸煮就能品嚐食材本身的美味。</p></div>
+        </article>
+        <article class="product">
+          <div class="product-img" role="img" aria-label="地瓜"></div>
+          <div class="product-info"><span class="tag">產地直送</span><h3>香甜地瓜</h3><p>口感綿密、風味樸實，適合烤、蒸或加入日常料理。</p></div>
+        </article>
+        <article class="product">
+          <div class="product-img" role="img" aria-label="新鮮水果"></div>
+          <div class="product-info"><span class="tag">季節水果</span><h3>在地鮮果</h3><p>依照產季精選水果，讓每一口都吃得到當季的自然風味。</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap story">
+      <div class="story-photo" role="img" aria-label="綠意農田與田野景色"></div>
+      <div class="story-copy">
+        <div class="eyebrow">OUR STORY</div>
+        <h2>從產地出發，<br>讓每一份用心被看見。</h2>
+        <p>我們相信，好的農產品不只來自土地，也來自農民每天的細心照料。透過產地與消費者的連結，讓新鮮食材更容易走進每個家庭。</p>
+        <p>每一次選購，都是對在地農業的支持。從認識產季、了解來源開始，一起建立更貼近土地的生活方式。</p>
+        <div class="values">
+          <div class="value"><strong>01｜在地連結</strong><span>支持地方農業與農民。</span></div>
+          <div class="value"><strong>02｜重視品質</strong><span>挑選新鮮、適合當季的農產。</span></div>
+          <div class="value"><strong>03｜友善生活</strong><span>珍惜食材，減少不必要浪費。</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="banner" id="promise">
+    <div class="wrap banner-inner">
+      <div><h2>從一份好農產，開始更好的日常。</h2><p>支持在地農業，品嚐土地與季節帶來的美好。</p></div>
+      <a class="btn" href="#contact">聯絡我們　→</a>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap footer-inner">
+    <span>© 2026 田野選物｜在地農產品</span>
+    <span>新鮮・自然・在地</span>
+  </div>
+</footer>
+</body>
+</html>
